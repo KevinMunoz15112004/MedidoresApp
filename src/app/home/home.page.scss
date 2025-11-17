@@ -1,27 +1,116 @@
-#container {
+.bienvenida-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
   text-align: center;
+  gap: 12px;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  ion-icon {
+    font-size: 60px;
+  }
+
+  h1 {
+    margin: 0;
+    color: var(--ion-color-primary);
+  }
+
+  p {
+    margin: 0;
+    color: var(--ion-color-medium);
+  }
+
+  ion-badge {
+    padding: 8px 16px;
+  }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.opciones-card {
+  margin: 20px 0;
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+.opciones-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-#container a {
-  text-decoration: none;
+.opcion {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.05));
+
+  ion-card-content {
+    padding: 16px 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    ion-icon {
+      font-size: 32px;
+    }
+
+    h3 {
+      margin: 8px 0 4px 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--ion-color-medium);
+    }
+  }
+
+  &:active,
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.info-list {
+  ion-item {
+    --padding-start: 0;
+    --padding-end: 0;
+    margin-bottom: 12px;
+
+    ion-icon {
+      margin-right: 12px;
+    }
+
+    ion-label {
+      p {
+        &:first-child {
+          font-size: 12px;
+          color: var(--ion-color-medium);
+          font-weight: 600;
+          margin-bottom: 4px;
+        }
+
+        &:last-child {
+          font-size: 16px;
+          color: var(--ion-color-dark);
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+.footer-info {
+  text-align: center;
+  margin-top: 30px;
+  padding: 20px;
+  color: var(--ion-color-medium);
+  font-size: 12px;
+
+  p {
+    margin: 4px 0;
+  }
 }

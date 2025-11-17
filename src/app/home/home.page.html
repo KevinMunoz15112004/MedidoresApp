@@ -1,20 +1,87 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title style="color: blue; text-align: center;">Medidores DMQ</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" color="danger">
+        <ion-icon slot="start" name="log-out"></ion-icon>
+        Salir
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <div class="bienvenida-container">
+    <ion-icon name="water" color="primary"></ion-icon>
+    <h1>Bienvenido</h1>
+    <p *ngIf="usuario">{{ usuario.nombre }}</p>
+    <ion-badge *ngIf="usuario" [color]="usuario.rol === 'admin' ? 'danger' : 'primary'">
+      {{ usuario.rol === 'admin' ? 'Administrador' : 'Medidor' }}
+    </ion-badge>
+  </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <ion-card class="opciones-card">
+    <ion-card-header>
+      <ion-card-title>Opciones Principales</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="opciones-grid">
+        <ion-card *ngIf="usuario?.rol !== 'admin'" class="opcion" (click)="irANuevaMedicion()">
+          <ion-card-content>
+            <ion-icon name="add-circle" color="primary"></ion-icon>
+            <h3>Nueva Medición</h3>
+            <p>Registrar una nueva lectura</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="opcion" (click)="irAListado()">
+          <ion-card-content>
+            <ion-icon name="document-text" color="success"></ion-icon>
+            <h3>Ver Mediciones</h3>
+            <p *ngIf="usuario?.rol === 'admin'">Ver todos los registros</p>
+            <p *ngIf="usuario?.rol === 'medidor'">Ver mis registros</p>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="usuario">
+    <ion-card-header>
+      <ion-card-title>Información del Usuario</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="info-list">
+        <ion-item>
+          <ion-icon name="person" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <p>Nombre</p>
+            <p>{{ usuario.nombre }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="mail" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <p>Correo</p>
+            <p>{{ usuario.email }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="shield-checkmark" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <p>Rol</p>
+            <p [ngSwitch]="usuario.rol">
+              <span *ngSwitchCase="'admin'" color="danger">Administrador</span>
+              <span *ngSwitchCase="'medidor'">Medidor</span>
+            </p>
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="footer-info">
+    <p>Sistema de Gestión de Medidores</p>
+    <p>Distrito Metropolitano de Quito</p>
   </div>
 </ion-content>

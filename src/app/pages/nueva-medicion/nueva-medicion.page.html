@@ -1,0 +1,156 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" color="primary"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: blue; text-align: center;">Nueva Medición</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="medicionForm">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Datos de la Medición</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Valor del Medidor (m³)</ion-label>
+          <ion-input 
+            formControlName="valor" 
+            type="number"
+            step="0.01"
+            clearInput
+          ></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="medicionForm.get('valor')?.hasError('required') && medicionForm.get('valor')?.touched">
+          <p>El valor del medidor es requerido</p>
+        </ion-text>
+
+        <ion-item>
+          <ion-label position="floating">Dirección (opcional)</ion-label>
+          <ion-input 
+            formControlName="direccion" 
+            type="text"
+            clearInput
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Observaciones (opcional)</ion-label>
+          <ion-textarea 
+            formControlName="observaciones"
+            rows="3"
+          ></ion-textarea>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Ubicación GPS</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div *ngIf="latitude && longitude" class="ubicacion-info">
+          <ion-item>
+            <ion-icon name="checkmark-circle" slot="start" color="success"></ion-icon>
+            <ion-label>
+              <p>Latitud: {{ latitude | number: '1.6-6' }}</p>
+              <p>Longitud: {{ longitude | number: '1.6-6' }}</p>
+            </ion-label>
+          </ion-item>
+        </div>
+        <div *ngIf="!latitude || !longitude" class="ubicacion-info-vacia">
+          <p>No has obtenido la ubicación aún</p>
+        </div>
+        <ion-button 
+          expand="block" 
+          (click)="obtenerUbicacion()"
+          [disabled]="obteniendoUbicacion"
+        >
+          <ion-icon name="location" slot="start"></ion-icon>
+          <ion-spinner *ngIf="obteniendoUbicacion" name="crescent"></ion-spinner>
+          <span *ngIf="!obteniendoUbicacion">Obtener Ubicación</span>
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Fotografía del Medidor</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div *ngIf="fotoMedidor" class="foto-container">
+          <img [src]="fotoMedidor" alt="Foto del medidor">
+          <ion-button 
+            color="danger" 
+            fill="outline" 
+            expand="block"
+            (click)="eliminarFotoMedidor()"
+          >
+            <ion-icon name="trash" slot="start"></ion-icon>
+            Eliminar Foto
+          </ion-button>
+        </div>
+        <div *ngIf="!fotoMedidor" class="sin-foto">
+          <ion-icon name="image"></ion-icon>
+          <p>Sin fotografía</p>
+        </div>
+        <ion-button 
+          expand="block" 
+          (click)="tomarFotoMedidor()"
+          [disabled]="tomandoFoto"
+        >
+          <ion-icon name="camera" slot="start"></ion-icon>
+          <ion-spinner *ngIf="tomandoFoto" name="crescent"></ion-spinner>
+          <span *ngIf="!tomandoFoto">Capturar Foto</span>
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Fotografía de la Fachada</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div *ngIf="fotoFachada" class="foto-container">
+          <img [src]="fotoFachada" alt="Foto de la fachada">
+          <ion-button 
+            color="danger" 
+            fill="outline" 
+            expand="block"
+            (click)="eliminarFotoFachada()"
+          >
+            <ion-icon name="trash" slot="start"></ion-icon>
+            Eliminar Foto
+          </ion-button>
+        </div>
+        <div *ngIf="!fotoFachada" class="sin-foto">
+          <ion-icon name="image"></ion-icon>
+          <p>Sin fotografía</p>
+        </div>
+        <ion-button 
+          expand="block" 
+          (click)="tomarFotoFachada()"
+          [disabled]="tomandoFoto"
+        >
+          <ion-icon name="camera" slot="start"></ion-icon>
+          <ion-spinner *ngIf="tomandoFoto" name="crescent"></ion-spinner>
+          <span *ngIf="!tomandoFoto">Capturar Foto</span>
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button 
+      expand="block" 
+      color="primary" 
+      size="large"
+      (click)="guardarMedicion()"
+      [disabled]="cargando"
+    >
+      <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+      <ion-spinner *ngIf="cargando" name="crescent"></ion-spinner>
+      <span *ngIf="!cargando">Guardar Medición</span>
+    </ion-button>
+  </form>
+</ion-content>

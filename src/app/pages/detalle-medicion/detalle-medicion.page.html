@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/listado-mediciones" color="primary"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: blue; text-align: center;">Detalle de Medición</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="cargando" class="cargando-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Cargando medición...</p>
+  </div>
+
+  <div *ngIf="!cargando && medicion">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Información Principal</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Valor del Medidor</label>
+            <p class="valor">{{ medicion.valor }} m³</p>
+          </div>
+          <div class="info-item">
+            <label>Fecha y Hora</label>
+            <p>{{ medicion.timestamp | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
+          </div>
+          <div class="info-item">
+            <label>Usuario</label>
+            <p>{{ medicion.userName }}</p>
+          </div>
+          <div class="info-item">
+            <label>Correo</label>
+            <p>{{ medicion.userEmail }}</p>
+          </div>
+          <div *ngIf="medicion.direccion" class="info-item">
+            <label>Dirección</label>
+            <p>{{ medicion.direccion }}</p>
+          </div>
+          <div *ngIf="medicion.observaciones" class="info-item">
+            <label>Observaciones</label>
+            <p>{{ medicion.observaciones }}</p>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Ubicación GPS</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="ubicacion-info">
+          <div class="coordenadas">
+            <div class="coordenada-item">
+              <ion-icon name="location"></ion-icon>
+              <div>
+                <label>Latitud</label>
+                <p>{{ medicion.latitude }}</p>
+              </div>
+            </div>
+            <div class="coordenada-item">
+              <ion-icon name="location"></ion-icon>
+              <div>
+                <label>Longitud</label>
+                <p>{{ medicion.longitude }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ion-button 
+          expand="block" 
+          color="primary"
+          (click)="abrirMaps()"
+        >
+          <ion-icon slot="start" name="map"></ion-icon>
+          Abrir en Google Maps
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Fotografía del Medidor</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="foto-container">
+          <img [src]="medicion.fotoMedidor" alt="Foto del medidor" class="foto">
+        </div>
+        <ion-button 
+          expand="block" 
+          fill="outline"
+          (click)="descargarFoto(medicion.fotoMedidor, 'medidor_' + medicion.id)"
+        >
+          <ion-icon slot="start" name="download"></ion-icon>
+          Descargar Foto
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Fotografía de la Fachada</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="foto-container">
+          <img [src]="medicion.fotoFachada" alt="Foto de la fachada" class="foto">
+        </div>
+        <ion-button 
+          expand="block" 
+          fill="outline"
+          (click)="descargarFoto(medicion.fotoFachada, 'fachada_' + medicion.id)"
+        >
+          <ion-icon slot="start" name="download"></ion-icon>
+          Descargar Foto
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,135 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login" color="primary"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: blue; text-align: center;">Registrarse</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="logo-container">
+    <ion-icon name="water" color="primary"></ion-icon>
+    <h1>Medidores DMQ</h1>
+  </div>
+
+  <div class="tipo-usuario">
+    <ion-label>Tipo de Usuario:</ion-label>
+    <ion-segment [(ngModel)]="tipoUsuario" color="primary">
+      <ion-segment-button value="medidor">
+        <ion-label>Medidor</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="admin">
+        <ion-label>Administrador</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <form [formGroup]="registerForm">
+    <ion-item>
+      <ion-label position="floating">Nombre Completo</ion-label>
+      <ion-input 
+        formControlName="nombre" 
+        type="text"
+        clearInput
+      ></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="registerForm.get('nombre')?.hasError('required') && registerForm.get('nombre')?.touched">
+      <p>El nombre es requerido</p>
+    </ion-text>
+    <ion-text color="danger" *ngIf="registerForm.get('nombre')?.hasError('minlength') && registerForm.get('nombre')?.touched">
+      <p>El nombre debe tener al menos 3 caracteres</p>
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-input 
+        formControlName="email" 
+        type="email"
+        clearInput
+      ></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched">
+      <p>El correo es requerido</p>
+    </ion-text>
+    <ion-text color="danger" *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
+      <p>El correo no es válido</p>
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input 
+        formControlName="password" 
+        [type]="mostrarPassword ? 'text' : 'password'"
+      ></ion-input>
+      <ion-button 
+        fill="clear" 
+        slot="end" 
+        (click)="togglePassword()"
+      >
+        <ion-icon [name]="mostrarPassword ? 'eye-off' : 'eye'"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-text color="danger" *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched">
+      <p>La contraseña es requerida</p>
+    </ion-text>
+    <ion-text color="danger" *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched">
+      <p>La contraseña debe tener al menos 6 caracteres</p>
+    </ion-text>
+
+    <ion-item>
+      <ion-label position="floating">Confirmar Contraseña</ion-label>
+      <ion-input 
+        formControlName="confirmarPassword" 
+        [type]="mostrarConfirmarPassword ? 'text' : 'password'"
+      ></ion-input>
+      <ion-button 
+        fill="clear" 
+        slot="end" 
+        (click)="toggleConfirmarPassword()"
+      >
+        <ion-icon [name]="mostrarConfirmarPassword ? 'eye-off' : 'eye'"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <ion-text color="danger" *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('confirmarPassword')?.touched">
+      <p>Las contraseñas no coinciden</p>
+    </ion-text>
+
+    <ion-item *ngIf="tipoUsuario === 'admin'">
+      <ion-label position="floating">Clave de Administrador</ion-label>
+      <ion-input 
+        formControlName="claveSuperior" 
+        [type]="mostrarClaveSuperior ? 'text' : 'password'"
+      ></ion-input>
+      <ion-button 
+        fill="clear" 
+        slot="end" 
+        (click)="toggleClaveSuperior()"
+      >
+        <ion-icon [name]="mostrarClaveSuperior ? 'eye-off' : 'eye'"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+    <ion-button 
+      expand="block" 
+      color="primary" 
+      (click)="registro()"
+      [disabled]="cargando"
+    >
+      <ion-spinner *ngIf="cargando" name="crescent"></ion-spinner>
+      <span *ngIf="!cargando">Registrarse</span>
+    </ion-button>
+  </form>
+
+  <div class="login-link">
+    <p>¿Ya tienes cuenta? 
+      <ion-button 
+        fill="clear" 
+        size="small" 
+        (click)="irALogin()"
+      >
+        Inicia sesión aquí
+      </ion-button>
+    </p>
+  </div>
+</ion-content>

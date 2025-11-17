@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" color="primary"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: blue; text-align: center;">Mediciones</ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="usuario?.rol === 'medidor'"  (click)="nuevaMedicion()" color="primary">
+        <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="refrescar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="!cargando && mediciones.length === 0" class="lista-vacia">
+    <ion-icon name="document-text"></ion-icon>
+    <h2>Sin mediciones registradas</h2>
+    <p>{{ filtro === 'todas' ? 'No hay mediciones en el sistema' : 'Aún no has registrado mediciones' }}</p>
+    <ion-button (click)="nuevaMedicion()" color="primary">
+      <ion-icon slot="start" name="add"></ion-icon>
+      Nueva Medición
+    </ion-button>
+  </div>
+
+  <ion-list *ngIf="mediciones.length > 0" class="mediciones-list">
+    <ion-card 
+      *ngFor="let medicion of mediciones" 
+      (click)="verDetalle(medicion)"
+      class="medicion-card"
+    >
+      <ion-card-header>
+        <ion-card-title>{{ medicion.valor }} m³</ion-card-title>
+        <ion-card-subtitle>{{ convertirTimestamp(medicion.timestamp) | date: 'dd/MM/yyyy HH:mm' }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="medicion-info">
+          <div class="info-item">
+            <ion-icon name="person"></ion-icon>
+            <span>{{ medicion.userName }}</span>
+          </div>
+          <div *ngIf="medicion.direccion" class="info-item">
+            <ion-icon name="location"></ion-icon>
+            <span>{{ medicion.direccion }}</span>
+          </div>
+          <div class="info-item">
+            <ion-icon name="map"></ion-icon>
+            <span>{{ medicion.latitude | number: '1.4-4' }}, {{ medicion.longitude | number: '1.4-4' }}</span>
+          </div>
+          <div *ngIf="medicion.observaciones" class="info-item">
+            <ion-icon name="document-text"></ion-icon>
+            <span>{{ medicion.observaciones }}</span>
+          </div>
+        </div>
+      </ion-card-content>
+      <ion-button fill="clear" expand="block" class="ver-detalles">
+        <ion-icon slot="end" name="chevron-forward"></ion-icon>
+        Ver Detalles
+      </ion-button>
+    </ion-card>
+  </ion-list>
+
+  <div *ngIf="cargando" class="cargando-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Cargando mediciones...</p>
+  </div>
+</ion-content>

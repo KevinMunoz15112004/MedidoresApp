@@ -1,0 +1,113 @@
+.filtro-container {
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.02);
+  ion-segment {
+    width: 100%;
+  }
+}
+
+.lista-vacia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+  color: var(--ion-color-medium);
+
+  ion-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+  }
+
+  h2 {
+    margin: 10px 0;
+    color: var(--ion-color-dark);
+  }
+
+  p {
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  ion-button {
+    margin-top: 10px;
+  }
+}
+
+.mediciones-list {
+  padding: 10px;
+}
+
+.medicion-card {
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  &:active,
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+ion-card-header {
+  background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+  color: white;
+}
+
+ion-card-title,
+ion-card-subtitle {
+  color: white;
+}
+
+.medicion-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 6px;
+  font-size: 14px;
+
+  ion-icon {
+    color: var(--ion-color-primary);
+    font-size: 20px;
+    min-width: 24px;
+  }
+
+  span {
+    flex: 1;
+    word-break: break-word;
+  }
+}
+
+.ver-detalles {
+  margin-top: 10px;
+  color: var(--ion-color-primary);
+}
+
+.cargando-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  gap: 20px;
+
+  ion-spinner {
+    color: var(--ion-color-primary);
+  }
+
+  p {
+    color: var(--ion-color-medium);
+  }
+}

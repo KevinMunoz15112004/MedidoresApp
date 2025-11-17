@@ -1,12 +1,6 @@
 /*
  * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
+ * Estilos globales para la aplicación Medidores DMQ
  */
 
 /* Core CSS required for Ionic components to work properly */
@@ -26,8 +20,207 @@
 @import "@ionic/angular/css/flex-utils.css";
 
 /**
+ * Colores personalizados para Medidores DMQ
+ */
+:root {
+  --ion-color-primary: #0047AB;
+  --ion-color-primary-rgb: 0, 71, 171;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #003d96;
+  --ion-color-primary-tint: #1859b5;
+
+  --ion-color-secondary: #1E90FF;
+  --ion-color-secondary-rgb: 30, 144, 255;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #1a7fe0;
+  --ion-color-secondary-tint: #359aff;
+
+  --ion-color-success: #10b981;
+  --ion-color-danger: #ef4444;
+  --ion-color-warning: #f59e0b;
+  --ion-color-light: #f3f4f6;
+  --ion-color-medium: #6b7280;
+  --ion-color-dark: #1f2937;
+}
+
+/**
+ * Estilos globales personalizados
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background-color: #f8fafc;
+}
+
+ion-app {
+  --background: #ffffff;
+  --ion-background-color: #ffffff;
+}
+
+/* Personalización de header */
+ion-header {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+ion-toolbar {
+  background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-secondary) 100%);
+  --color: white;
+}
+
+ion-title {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Personalización de content */
+ion-content {
+  --background: #f8fafc;
+  --ion-background-color: #f8fafc;
+}
+
+/* Personalización de cards */
+ion-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin: 12px;
+  background: white;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transition: box-shadow 0.2s ease;
+  }
+}
+
+ion-card-header {
+  padding: 16px;
+  background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-secondary));
+  border-radius: 12px 12px 0 0;
+}
+
+ion-card-title {
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+ion-card-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Personalización de botones */
+ion-button {
+  --border-radius: 8px;
+  --padding-start: 20px;
+  --padding-end: 20px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.3px;
+
+  &[color="primary"] {
+    --background: var(--ion-color-primary);
+    --background-hover: var(--ion-color-primary-shade);
+  }
+
+  &[color="danger"] {
+    --background: #ef4444;
+  }
+
+  &[color="success"] {
+    --background: #10b981;
+  }
+}
+
+/* Personalización de items */
+ion-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  --min-height: 56px;
+  --border-width: 0 0 1px 0;
+  --border-color: rgba(0, 0, 0, 0.05);
+
+  ion-label {
+    margin: 8px 0;
+    color: var(--ion-color-dark);
+  }
+
+  ion-icon {
+    color: var(--ion-color-primary);
+    margin-right: 12px;
+  }
+}
+
+/* Personalización de inputs */
+ion-input,
+ion-textarea,
+ion-select {
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+ion-input::placeholder,
+ion-textarea::placeholder {
+  color: var(--ion-color-medium);
+}
+
+/* Personalización de spinners */
+ion-spinner {
+  --color: var(--ion-color-primary);
+}
+
+/* Personalización de badges */
+ion-badge {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 6px;
+  --padding-bottom: 6px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Personalización de texto de error */
+ion-text[color="danger"] {
+  color: #ef4444 !important;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 4px;
+  display: block;
+
+  p {
+    margin: 0;
+  }
+}
+
+/* Estilos de transición */
+ion-button,
+ion-card,
+ion-item {
+  transition: all 0.2s ease;
+}
+
+/* Responsividad */
+@media (max-width: 480px) {
+  ion-card {
+    margin: 8px;
+  }
+
+  ion-button {
+    --padding-start: 16px;
+    --padding-end: 16px;
+  }
+}
+
+/**
  * Ionic Dark Mode
- * -----------------------------------------------------
+ * 
  * For more info, please see:
  * https://ionicframework.com/docs/theming/dark-mode
  */

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Medidores DMQ</string>
+    <string name="title_activity_main">Medidores DMQ</string>
+    <string name="package_name">com.medidores.dmq</string>
+    <string name="custom_url_scheme">com.medidores.dmq</string>
+</resources>
