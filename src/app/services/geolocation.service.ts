@@ -20,10 +20,9 @@ export class GeolocationService {
         throw new Error('Permiso de ubicación denegado');
       }
 
-      // Obtener posición con opciones: timeout y alta precisión
       const coordinates = await Geolocation.getCurrentPosition({
         enableHighAccuracy: true,
-        timeout: 15000  // 15 segundos de timeout
+        timeout: 15000 
       });
 
       return {
