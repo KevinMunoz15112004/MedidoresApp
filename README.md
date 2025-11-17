@@ -6,6 +6,10 @@ Nombre: Kevin Muñoz
 
 Esta Aplicación usa como backend a Firebase, junto Ionic Angular con NgModules 
 
+## APK
+
+Para pobrar el apk ir a: [APK MEDIDORES](android/app/build/outputs/apk/debug)
+
 ## Pantalla login
 
 El login diseñado para esta aplicación es:
@@ -110,6 +114,7 @@ Además se incluye un botón de logout que se ubica en la parte superior derecha
 <img width="103" height="59" alt="image" src="https://github.com/user-attachments/assets/3ca07b92-4631-4315-b54d-46f733dae283" />
 
 <img width="265" height="47" alt="image" src="https://github.com/user-attachments/assets/e7eeee9d-222f-4f3a-bf30-b514e3c0b46e" />
+
 
 
 
